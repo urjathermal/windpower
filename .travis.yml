@@ -1,0 +1,23 @@
+language: python
+
+matrix:
+  include:
+    - python: 3.10
+    - python: 3.11
+    - python: 3.12
+
+# command to install dependencies
+#before_install:
+#  - sudo apt-get install coinor-cbc
+
+install:
+  - pip install .
+  - pip install coveralls sphinx sphinx_rtd_theme nbformat pytest-cov jupyter
+
+# command to run tests
+script:
+  - coverage run --rcfile=.coveragerc --source windpowerlib -m py.test
+  - coverage report
+
+after_success:
+  - coveralls
